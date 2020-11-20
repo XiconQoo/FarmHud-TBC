@@ -6,7 +6,7 @@ If you want to support the original author, plz donate to their [Patreon](https:
 
 ## Screenshot
 
-![Screenshot](../readme-media/screenshot/sample.jpg){:height="540px" width="960px"}
+![Screenshot](../readme-media/screenshot/sample.jpg)
 
 ## Changes
 
