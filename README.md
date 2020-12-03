@@ -11,8 +11,9 @@ If you want to support the original author, plz donate to their [Patreon](https:
 ## Changes
 
 - remove minimap button
-- add GatherMate support
-- add Gatherer support
+- add GatherMate support - [GatherMate v1.03](https://www.wowace.com/projects/gathermate/files/201533)
+- add Gatherer support - [Gatherer-TBC-FarmHud-Compatible](https://github.com/XiconQoo/Gatherer-TBC-FarmHud-Compatible)
+- add Routes support - [Routes-TBC-FarmHud-Compatible](https://github.com/XiconQoo/Routes-TBC-FarmHud-Compatible)
 - add right click mouse movement when mouse is enabled
 - added commands:
     - `/fh` - toggles farmhud overlay
