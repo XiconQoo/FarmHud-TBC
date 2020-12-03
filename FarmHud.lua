@@ -24,6 +24,10 @@ local onShow = function()
 		GatherMate:GetModule("Display"):ChangedVars(nil, "ROTATE_MINIMAP", "1")
 	end
 
+	if Gatherer then
+		Gatherer.MiniNotes.SetCurrentMinimap(FarmHudMapCluster)
+	end
+
 	if Routes and Routes.ReparentMinimap and (FarmHudDB.show_routes == true) then
 		Routes:ReparentMinimap(FarmHudMapCluster)
 		Routes:CVAR_UPDATE(nil, "ROTATE_MINIMAP", "1")
@@ -42,6 +46,10 @@ local onHide = function()
 	if GatherMate then
 		GatherMate:GetModule("Display"):ReparentMinimapPins(Minimap)
 		GatherMate:GetModule("Display"):ChangedVars(nil, "ROTATE_MINIMAP", fh_mapRotation)
+	end
+
+	if Gatherer then
+		Gatherer.MiniNotes.SetCurrentMinimap(Minimap)
 	end
 
 	if Routes and Routes.ReparentMinimap then

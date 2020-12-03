@@ -11,7 +11,8 @@ If you want to support the original author, plz donate to their [Patreon](https:
 ## Changes
 
 - remove minimap button
-- add gatherer support
+- add GatherMate support
+- add Gatherer support
 - add right click mouse movement when mouse is enabled
 - added commands:
     - `/fh` - toggles farmhud overlay
