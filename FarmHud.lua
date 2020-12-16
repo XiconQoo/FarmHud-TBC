@@ -1,3 +1,4 @@
+local ADDON_NAME = "FarmHUD"
 local FarmHud = CreateFrame("frame")
 _G["FarmHud"] = FarmHud
 
@@ -9,6 +10,12 @@ local directions = {}
 local playerDot
 local updateRotations
 local mousewarn
+
+local print = function(s)
+	local str = s
+	if s == nil then str = "" end
+	DEFAULT_CHAT_FRAME:AddMessage("|cffa0f6aa[".. ADDON_NAME .."]|r: " .. str)
+end
 
 ---------------------------------------------------------------------------------------------
 
@@ -24,7 +31,7 @@ local onShow = function()
 		GatherMate:GetModule("Display"):ChangedVars(nil, "ROTATE_MINIMAP", "1")
 	end
 
-	if Gatherer then
+	if Gatherer and (FarmHudDB.show_gatherer == true) then
 		Gatherer.MiniNotes.SetCurrentMinimap(FarmHudMapCluster)
 	end
 
@@ -97,7 +104,7 @@ end
 ---------------------------------------------------------------------------------------------
 
 function FarmHud:Toggle(flag)
-	if flag == nil then
+	if flag == nil and not FarmHudDB.show_mounted then
 		if FarmHudMapCluster:IsVisible() then
 			FarmHudMapCluster:Hide()
 		else
@@ -149,6 +156,66 @@ end
 
 ---------------------------------------------------------------------------------------------
 
+-- INTERFACE OPTIONS
+
+---------------------------------------------------------------------------------------------
+
+local FarmHUD_Options = LibStub("LibSimpleOptions-1.0")
+function FarmHud:CreateOptions()
+	local panel = FarmHUD_Options.AddOptionsPanel("FarmHUD", function() end)
+	local i,option_toggles = 1, {}
+
+	local title, subText = panel:MakeTitleTextAndSubText("FarmHUD Addon", "General settings")
+
+	local show_mounted = panel:MakeToggle(
+			'name', 'Toggle FarmHUD when mounted',
+			'description', 'This will enable FarmHUD when mounted and disable when unmounted. You\'ll be unable to toggle FarmHUD with /fh anymore.',
+			'default', false,
+			'getFunc', function() return FarmHudDB.show_mounted end,
+			'setFunc', function(value) FarmHudDB.show_mounted = value end)
+	show_mounted:SetPoint("TOPLEFT",subText,"BOTTOMLEFT", 10, -10)
+	option_toggles[i] = show_mounted
+
+	if GatherMate then
+		local gathermate = panel:MakeToggle(
+				'name', 'Show Gathermate Nodes',
+				'description', 'Show Gathermate Nodes',
+				'default', true,
+				'getFunc', function() return FarmHudDB.show_gathermate end,
+				'setFunc', function(value) FarmHudDB.show_gathermate = value end)
+		gathermate:SetPoint("TOPLEFT",option_toggles[i],"BOTTOMLEFT")
+		i = i + 1
+		option_toggles[i] = gathermate
+	end
+
+	if Gatherer then
+		local gatherer = panel:MakeToggle(
+				'name', 'Show Gatherer Nodes',
+				'description', 'Show Gatherer Nodes',
+				'default', true,
+				'getFunc', function() return FarmHudDB.show_gatherer end,
+				'setFunc', function(value) FarmHudDB.show_gatherer = value end)
+		gatherer:SetPoint("TOPLEFT",option_toggles[i],"BOTTOMLEFT")
+		i = i + 1
+		option_toggles[i] = gatherer
+	end
+
+	if Routes then
+		local routes = panel:MakeToggle(
+				'name', 'Show Routes',
+				'description', 'Show Routes',
+				'default', true,
+				'getFunc', function() return FarmHudDB.show_routes end,
+				'setFunc', function(value) FarmHudDB.show_routes = value end)
+		routes:SetPoint("TOPLEFT",option_toggles[i],"BOTTOMLEFT")
+		i = i + 1
+		option_toggles[i] = routes
+	end
+
+end
+
+---------------------------------------------------------------------------------------------
+
 -- EVENT HANDLERS
 
 ---------------------------------------------------------------------------------------------
@@ -159,20 +226,20 @@ function FarmHud:PLAYER_LOGIN()
 		FarmHudDB = {}
 	end
 
-	if not FarmHudDB.MinimapIcon then
-		FarmHudDB.MinimapIcon = {
-			hide = false,
-			minimapPos = 220,
-			radius = 80,
-		}
-	end
-
 	if not FarmHudDB.show_gathermate then
 		FarmHudDB.show_gathermate = true
 	end
 
 	if not FarmHudDB.show_routes then
 		FarmHudDB.show_routes = true
+	end
+
+	if not FarmHudDB.show_gatherer then
+		FarmHudDB.show_gatherer = true
+	end
+
+	if not FarmHudDB.show_mounted then
+		FarmHudDB.show_mounted = false
 	end
 
 	if not FarmHudDB.show_npcscan then
@@ -237,6 +304,10 @@ function FarmHud:PLAYER_LOGIN()
 	FarmHudMapCluster:Hide()
 	FarmHudMapCluster:SetScript("OnShow", onShow)
 	FarmHudMapCluster:SetScript("OnHide", onHide)
+	FarmHud:CreateOptions()
+	print("Loaded")
+	print("Type '/fh' to toggle FarmHUD and '/fh mouse' to toggle hovering over the tracked nodes.")
+	print("You can find more options (like disabling GatherMate nodes) in the interface menu.")
 end
 
 function FarmHud:PLAYER_LOGOUT()
@@ -252,6 +323,29 @@ end
 FarmHud:SetScript("OnEvent", function(self, event, ...) if self[event] then return self[event](self, event, ...) end end)
 FarmHud:RegisterEvent("PLAYER_LOGIN")
 FarmHud:RegisterEvent("PLAYER_LOGOUT")
+
+---------------------------------------------------------------------------------------------
+
+-- ON UPDATE TOGGLE WHEN MOUNTED
+
+---------------------------------------------------------------------------------------------
+
+local FarmHUD_OnUpdate = CreateFrame("frame")
+FarmHUD_OnUpdate.updateInterval = 0.1;
+FarmHUD_OnUpdate.timeSinceLastUpdate = 0
+FarmHUD_OnUpdate:SetScript("OnUpdate", function(self, elapsed)
+	FarmHUD_OnUpdate.timeSinceLastUpdate = FarmHUD_OnUpdate.timeSinceLastUpdate + elapsed
+	if (FarmHUD_OnUpdate.timeSinceLastUpdate > FarmHUD_OnUpdate.updateInterval) then
+		if FarmHudDB.show_mounted then
+			if IsMounted() and not UnitOnTaxi("player") then
+				FarmHud:Toggle(true)
+			else
+				FarmHud:Toggle(false)
+			end
+		end
+		FarmHUD_OnUpdate.timeSinceLastUpdate = 0
+	end
+end)
 
 ---------------------------------------------------------------------------------------------
 

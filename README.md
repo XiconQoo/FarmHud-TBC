@@ -18,3 +18,6 @@ If you want to support the original author, plz donate to their [Patreon](https:
 - added commands:
     - `/fh` - toggles farmhud overlay
     - `/fh mouse` toggles mouse enable for overlay to mouseover tracking nodes (YOU WON'T BE ABLE TO CLICK THROUGH TO HERB/MINE/WHATEVER THOUGH)
+- added options menu in the interface options
+    - added option to make FarmHUD automatically toggle on mount/dismount
+    - enable/disable GatherMate, Gatherer, Routes display
