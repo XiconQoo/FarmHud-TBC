@@ -1,6 +1,6 @@
 # FarmHud TBC
 
-### [v1.0.2-Release Download Here](https://github.com/XiconQoo/FarmHud-TBC/releases/download/v1.0-Release/FarmHud-TBC-v1.0-Release.zip)
+### [v1.0-Release Download Here](https://github.com/XiconQoo/FarmHud-TBC/releases/download/v1.0-Release/FarmHud-TBC-v1.0-Release.zip)
 
 ###### <a target="_blank" rel="noopener noreferrer" href="https://www.paypal.me/xiconqoo/10"><img src="../readme-media/screenshot/Paypal-Donate.png" height="30" style="margin-top:-30px;position:relative;top:20px;"></a> Please consider donating if you like my work
 
