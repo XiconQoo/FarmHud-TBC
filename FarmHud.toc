@@ -5,8 +5,8 @@
 ## OptionalDeps: Ace3, CallbackHandler-1.0, LibDBIcon-1.0, LibStub, GatherMate, Routes, _NPCScan.Overlay
 ## SavedVariables: FarmHudDB
 
-libs\LibStub\LibStub.lua
-libs\LibSimpleOptions-1.0\lib.xml
+lib\LibStub\LibStub.lua
+lib\LibSimpleOptions-1.0\lib.xml
 
 HudMap.xml
 FarmHud.lua
