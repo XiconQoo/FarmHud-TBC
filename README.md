@@ -2,7 +2,7 @@
 
 ### [v1.0.2-Release Download Here](https://github.com/XiconQoo/FarmHud-TBC/releases/download/v1.0-Release/FarmHud-TBC-v1.0-Release.zip)
 
-###### <a target="_blank" rel="noopener noreferrer" href="https://www.paypal.me/xiconqoo/10"><img src="../readme-media/Paypal-Donate.png" height="30" style="margin-top:-30px;position:relative;top:20px;"></a> Please consider donating if you like my work
+###### <a target="_blank" rel="noopener noreferrer" href="https://www.paypal.me/xiconqoo/10"><img src="../readme-media/screenshot/Paypal-Donate.png" height="30" style="margin-top:-30px;position:relative;top:20px;"></a> Please consider donating if you like my work
 
 This is forked from git commit rev d0914154ebd0b69f5f2cc2c4a83c5fd2396282d3 of the original  FarmHud curse forge repository https://www.curseforge.com/wow/addons/farmhud/source.
 
