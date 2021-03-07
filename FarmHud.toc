@@ -1,8 +1,9 @@
 ## Interface: 20400
 ## Title: FarmHud
 ## Notes: Turns your minimap into a hud for gathering resources!
-## Author: CodeRedLin
-## OptionalDeps: Ace3, CallbackHandler-1.0, LibDBIcon-1.0, LibStub, GatherMate, Routes, _NPCScan.Overlay
+## Author: CodeRedLin, XiconQoo
+## Version: 1.0-Release
+## OptionalDeps: Ace3, CallbackHandler-1.0, LibDBIcon-1.0, LibStub, GatherMate, Gatherer, Routes, _NPCScan.Overlay
 ## SavedVariables: FarmHudDB
 
 lib\LibStub\LibStub.lua
